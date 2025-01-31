@@ -2,10 +2,17 @@
 import { fetchPosts } from '@/services/feedService';
 import React, { use, useEffect, useState } from 'react';
 
+interface Product {
+  id: number;
+  body: string;
+  createdAt: string;
+}
+
+
 const Product = () => {
   
   //fetch data from feedservice
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(()=> {
     fetchPosts().then((data) => {
