@@ -1,24 +1,30 @@
-import React from 'react'
+'use client'
+import { fetchPosts } from '@/services/feedService';
+import React, { use, useEffect, useState } from 'react';
 
 const Product = () => {
-  const products = [
-    { id: 1, name: 'Product 1', price: '$10' },
-    { id: 2, name: 'Product 2', price: '$20' },
-    { id: 3, name: 'Product 3', price: '$30' },
-    { id: 4, name: 'Product 4', price: '$40' },
-    { id: 5, name: 'Product 5', price: '$50' },
-  ]
+  
+  //fetch data from feedservice
+  const [products, setProducts] = useState([]);
+
+  useEffect(()=> {
+    fetchPosts().then((data) => {
+      console.log('Fetched Data:', data);
+      setProducts(data);
+    });
+  })
 
   return (
     <div className="flex flex-wrap justify-around">
-      {products.map(product => (
-        <div key={product.id} className="bg-white shadow-md rounded-lg p-4 m-2 w-1/6 text-center">
-          <h2 className="text-lg font-bold">{product.name}</h2>
-          <p className="text-gray-600">{product.price}</p>
+      {products.map((product) => (
+        <div key={product.id} className="max-w-sm rounded overflow-hidden shadow-lg m-4 p-4">
+          <div className="font-bold text-xl mb-2">Post ID: {product.id}</div>
+          <p className="text-gray-700 text-base">{product.body}</p>
+          <p className="text-gray-500 text-sm">Created At: {new Date(product.createdAt).toLocaleString()}</p>
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Product
+export default Product;
