@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/feed';
+const API_URL = 'http://localhost:3000/api/feed';
 
 export const fetchPosts = async () => {
   try {
